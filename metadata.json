@@ -1,0 +1,71 @@
+{
+  "name": "stevenmerrill-carbon",
+  "version": "0.1.0",
+  "source": "UNKNOWN",
+  "author": "stevenmerrill",
+  "license": "Apache License, Version 2.0",
+  "summary": "Install Carbon from EPEL packages and configure it.",
+  "description": "UNKNOWN",
+  "project_page": "UNKNOWN",
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": ["6.0"]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": ["6.0"]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.2.0"
+    },
+    {
+      "name": "stahnma/epel",
+      "version_requirement": "~> 0.0.6"
+    }
+  ],
+  "types": [
+
+  ],
+  "checksums": {
+    "CHANGELOG": "3f30991014ef4131fb9864fbccd2bee4",
+    "CONTRIBUTING.md": "ec539f7912da25760720eebf9756ae65",
+    "CONTRIBUTORS": "c1def86b27c8ad1de412e8de6daf7242",
+    "Gemfile": "c5e82cfa4d1e1561518c00bee7ba5ef1",
+    "Guardfile": "3ae8d9a61b870350cc1c8e0d6a9a36e7",
+    "LICENSE": "47bbee59c4c1cb14cc3667035a227be0",
+    "Modulefile": "4e0d649a5f97706d631d4d982283055c",
+    "README.markdown": "11b8c291d88f00b2b691c8216eee6e82",
+    "Rakefile": "08cf234d01467acc67062d3853d70bcd",
+    "manifests/config.pp": "aef6ad16d4b3dad339cba6543338578d",
+    "manifests/init.pp": "91382e05127b4ed6ab597907cc829f27",
+    "manifests/install.pp": "26f7016d982e1284645773b5a71e2177",
+    "manifests/params.pp": "554ac1d4de1764d441e9a128815fb396",
+    "manifests/service.pp": "5d1464b11b59aa1733490017c73c8621",
+    "spec/acceptance/class_spec.rb": "807cf516210f6b7be6218092f875ece5",
+    "spec/acceptance/nodesets/centos-64-x64.yml": "7ad72bad9087a52f30c6f7d5600b68dd",
+    "spec/acceptance/nodesets/default.yml": "1091bb0897dc8ee94a391ab1d8e45132",
+    "spec/acceptance/nodesets/ubuntu-server-12042-x64.yml": "1091bb0897dc8ee94a391ab1d8e45132",
+    "spec/classes/coverage_spec.rb": "5b6dfa0dd426aca0ccfae23c0a629f0b",
+    "spec/classes/example_spec.rb": "dc6255db5e771de99e63e5888dec6684",
+    "spec/spec_helper.rb": "0db89c9a486df193c0e40095422e19dc",
+    "spec/spec_helper_acceptance.rb": "bccf575f4efdaa8c95e396f97d6ed111",
+    "templates/aggregation-rules.conf.erb": "a67ed7769e5a539d2bc7b0618a22c48a",
+    "templates/storage-aggregation.conf.erb": "9deed4dedcebf440d82defb6fdabead0",
+    "templates/storage-schemas.conf.erb": "e3c7e278f91fc2793628e26e76b58161",
+    "tests/init.pp": "ef89ca99420f9348d95e320b35a6bd31"
+  }
+}
