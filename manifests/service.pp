@@ -4,8 +4,13 @@
 # It ensure the service is running
 #
 class carbon::service {
-
-  service { $carbon::service_name:
+  service { $carbon::cache_service_name:
+    ensure     => running,
+    enable     => true,
+    hasstatus  => true,
+    hasrestart => true,
+  }
+  service { $carbon::aggregator_service_name:
     ensure     => running,
     enable     => true,
     hasstatus  => true,
