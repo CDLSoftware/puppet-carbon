@@ -2,6 +2,7 @@
 #
 class carbon::install {
   package { $carbon::package_name:
-    ensure => present,
+    ensure  => present,
+    require => Class['epel'],
   }
 }
