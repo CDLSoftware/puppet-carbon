@@ -10,11 +10,10 @@ class carbon::config {
 
   file {
     '/etc/carbon/aggregation-rules.conf':
-      content => template('graphite/etc/carbon/aggregation-rules.conf.erb'),
+      content => template('carbon/aggregation-rules.conf.erb');
     '/etc/carbon/storage-schemas.conf':
-      content => template('graphite/etc/carbon/storage-schemas.conf.erb'),
+      content => template('carbon/storage-schemas.conf.erb');
     '/etc/carbon/storage-aggregation.conf':
-      content => template('graphite/etc/carbon/storage-aggregation.conf.erb'),
+      content => template('carbon/storage-aggregation.conf.erb');
   }
-
 }

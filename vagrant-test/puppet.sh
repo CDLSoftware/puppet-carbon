@@ -1,3 +1,3 @@
 #!/bin/bash
 
-puppet module install 'stahnma/epel'
+puppet module install -f 'stahnma/epel'
