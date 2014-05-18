@@ -9,7 +9,11 @@
 #
 class carbon (
   $package_name = $carbon::params::package_name,
-  $service_name = $carbon::params::service_name,
+  $service_name = $carbon::params::cache_service_name,
+  $aggregator_service_name = $carbon::params::aggregator_service_name,
+  $aggregator_rules = $carbon::params::aggregator_rules,
+  $storage_aggregation_rules = $carbon::params::storage_aggregation_rules,
+  $storage_schemas = $carbon::params::storage_schemas,
 ) inherits carbon::params {
 
   # validate parameters here
