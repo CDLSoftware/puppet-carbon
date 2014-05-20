@@ -1,60 +1,98 @@
 ####Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with carbon](#setup)
-    * [What carbon affects](#what-carbon-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with carbon](#beginning-with-carbon)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+    * [Using the module](#using-the-module)
+1. [Usage](#usage)
+    * [Parameters](#parameters)
+1. [Limitations - OS compatibility, etc.](#limitations)
+1. [Development - Guide for contributing to the module](#development)
 
 ##Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves. This is your 30 second elevator pitch for your module. Consider including OS/Puppet version it works with.       
+A module for CentOS/RHEL 6 that configures and runs the Carbon part of the Graphite stack from EPEL. This is designed to be used with [my module for graphite-api](https://forge.puppetlabs.com/stevenmerrill/graphiteapi).
 
-##Module Description
+Several of the templates and parameters were copied from [Daniel Werdermann's Graphite module](https://forge.puppetlabs.com/dwerder/graphite).
 
-If applicable, this section should have a brief description of the technology the module integrates with and what that integration enables. This section should answer the questions: "What does this module *do*?" and "Why would I use it?"
+### Using the module
 
-If your module has a range of functionality (installation, configuration, management, etc.) this is the time to mention it.
+To install with the default parameters, use the following configuration.
 
-##Setup
+```
+include carbon
+```
 
-###What carbon affects
-
-* A list of files, packages, services, or operations that the module will alter, impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form. 
-
-###Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled, etc.), mention it here. 
-
-###Beginning with carbon
-
-The very basic steps needed for a user to get the module up and running. 
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you may wish to include an additional section here: Upgrading (For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+There are also several [parameters you can set](#parameters) to control carbon-cache and carbon-aggregator's operation.
 
 ##Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing the fancy stuff with your module here. 
+###Parameters
 
-##Reference
+#####`package_name`
 
-Here, list the classes, types, providers, facts, etc contained in your module. This section should include all of the under-the-hood workings of your module so people know what the module is touching on their system but don't need to mess with things. (We are working on automating this section!)
+This defaults to `python-carbon`, which will also install `python-whisper` and the necessary python dependencies from EPEL.
+
+#####`cache_service_name`
+
+This defaults to 'carbon-cache'.
+
+#####`aggregator_service_name`
+
+This defaults to 'carbon-aggregator'.
+
+#####`aggregator_rules`
+
+This is a hashmap of all the carbon aggregation rules.
+
+The default is
+```
+{
+  'carbon-class-mem'  => 'carbon.all.<class>.memUsage (60) = sum carbon.<class>.*.memUsage',
+  'carbon-all-mem'    => 'carbon.all.memUsage (60) = sum carbon.*.*.memUsage',
+}
+```
+
+#####`storage_schemas`
+
+The storage schemas, which describes how long matching graphs are to be stored in detail.
+
+The default is
+```
+[
+  {
+    name       => 'carbon',
+    pattern    => '^carbon\.',
+    retentions => '1m:90d'
+  },
+  {
+    name       => 'default',
+    pattern    => '.*',
+    retentions => '1s:30m,1m:1d,5m:2y'
+  }
+]
+```
+The storage schemas, which describes how long matching graphs are to be stored in detail.
+
+#####`storage_aggregation_rules`
+
+This is a hashmap of the storage aggregation rules.
+
+The default is
+```
+{
+  '00_min'         => { pattern => '\.min$',   factor => '0.1', method => 'min' },
+  '01_max'         => { pattern => '\.max$',   factor => '0.1', method => 'max' },
+  '02_sum'         => { pattern => '\.count$', factor => '0.1', method => 'sum' },
+  '99_default_avg' => { pattern => '.*',       factor => '0.5', method => 'average'}
+}
+```
+
 
 ##Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module will only work with RHEL or CentOS 6 at the moment, and will likely always be limited to RHELish systems. If you are not interested in installing carbon from packages, check out [Daniel Werdermann's excellent Graphite module](https://forge.puppetlabs.com/dwerder/graphite).
+
+It requires the EPEL repository, and expects that [Michael Stahnke's EPEL class](https://forge.puppetlabs.com/stahnma/epel) (or any class named "epel") will provide those.
 
 ##Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
-
-##Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You may also add any additional sections you feel are necessary or important to include here. Please use the `## ` header. 
+I will look at any pull requests. If you have a machine with Vagrant 1.6+ and Docker, you can quickly spin up a CentOS container to test using the vagrant-test directory here. [https://github.com/smerrill/puppet-carbon-graphiteapi-tests](https://github.com/smerrill/puppet-carbon-graphiteapi-tests) will also let you test this module along with my graphite-api module.
