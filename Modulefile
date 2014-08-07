@@ -8,4 +8,4 @@ description   'UNKNOWN'
 project_page  'UNKNOWN'
 
 dependency 'puppetlabs/stdlib', '>= 3.2.0'
-dependency 'stahnma/epel', '~> 0.0.6'
+dependency 'stahnma/epel', '>= 0.0.6'
