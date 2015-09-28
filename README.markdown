@@ -21,7 +21,7 @@ To install with the default parameters, use the following configuration.
 include carbon
 ```
 
-There are also several [parameters you can set](#parameters) to control carbon-cache and carbon-aggregator's operation.
+There are also several [parameters you can set](#parameters) to control carbon-cache, carbon-relay and carbon-aggregator's operation.
 
 ##Usage
 
@@ -31,13 +31,29 @@ There are also several [parameters you can set](#parameters) to control carbon-c
 
 This defaults to `python-carbon`, which will also install `python-whisper` and the necessary python dependencies from EPEL.
 
-#####`cache_service_name`
+#####`service_name`
 
-This defaults to 'carbon-cache'.
+The name of the cache service. This defaults to 'carbon-cache'.
 
 #####`aggregator_service_name`
 
-This defaults to 'carbon-aggregator'.
+The name of the aggregator service. This defaults to 'carbon-aggregator'.
+
+#####`relay_service_name`
+
+The name of the relay service. This defaults to 'carbon-relay'.
+
+#####`cache_service_ensure`
+
+The state that the cache service should be. This defaults to 'running'.
+
+#####`aggregator_service_ensure`
+
+The state that the aggregator service should be. This defaults to 'running'.
+
+#####`relay_service_ensure`
+
+The state that the relay service should be. This defaults to 'running'.
 
 #####`aggregator_rules`
 
@@ -86,6 +102,29 @@ The default is
 }
 ```
 
+#####`relay_rules`
+
+This is a hashmap of the relay rules.
+
+The default is
+```
+{
+  'default' => { destinations => '127.0.0.1:2004:a, 127.0.0.1:2104:b', },
+}
+```
+
+If no pattern is supplied to a rule that rule is set as the default. The rules are ordered by name.
+The full options available are as follows:
+```
+{
+  '00_proxies' => { pattern => '*.proxy.*', destinations => 'graphite2:2003', continue => true}
+  '99_default' => { destinations => 'mygraphite.co.uk:2003', },
+}
+```
+
+#####`carbon_relay_destinations`
+
+This sets the list of definitions within carbon.conf. The default is '127.0.0.1:2004:a, 127.0.0.1:2104:b'
 
 ##Limitations
 
