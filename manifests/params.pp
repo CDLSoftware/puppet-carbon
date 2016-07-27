@@ -63,6 +63,7 @@ class carbon::params {
         ,
       }
       $carbon_relay_destinations = '127.0.0.1:2004:a, 127.0.0.1:2104:b'
+      $carbon_relay_max_queue_size = 10000
     }
     default            : {
       fail("${::operatingsystem} not supported")

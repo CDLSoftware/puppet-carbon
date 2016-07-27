@@ -19,7 +19,8 @@ class carbon (
   $storage_aggregation_rules = $carbon::params::storage_aggregation_rules,
   $storage_schemas           = $carbon::params::storage_schemas,
   $relay_rules               = $carbon::params::relay_rules,
-  $carbon_relay_destinations = $carbon::params::carbon_relay_destinations,) inherits carbon::params {
+  $carbon_relay_destinations = $carbon::params::carbon_relay_destinations,
+  $carbon_relay_max_queue_size = $carbon::params::carbon_relay_max_queue_size,) inherits carbon::params {
   # validate parameters here
 
   class { 'carbon::install':

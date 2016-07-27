@@ -29,5 +29,11 @@ class carbon::config {
     changes => ["set relay/DESTINATIONS '${carbon::carbon_relay_destinations}'"],
     notify  => Service[$carbon::relay_service_name]
   }
+  
+  augeas { 'set relay max_queue_size':
+    context => '/files/etc/carbon/carbon.conf',
+    changes => ["set relay/MAX_QUEUE_SIZE '${carbon::carbon_relay_max_queue_size}'"],
+    notify  => Service[$carbon::relay_service_name]
+  }
 
 }
